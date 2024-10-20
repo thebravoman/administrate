@@ -5,6 +5,9 @@ module Administrate
     end
 
     def dashboard_class
+      # The namespace could be different than admin/
+      # It could be brands/
+      ActiveSupport::Inflector.safe_constantize("#{namespace.to_s.camelize}::#{resource_class_name}Dashboard") ||
       ActiveSupport::Inflector.constantize("#{resource_class_name}Dashboard")
     end
 
