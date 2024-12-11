@@ -26,7 +26,11 @@ module Administrate
     end
 
     def new
-      resource = new_resource
+      if params[resource_class.model_name.element].present?
+        resource = new_resource(resource_params)
+      else
+        resource = new_resource
+      end
       authorize_resource(resource)
       render locals: {
         page: Administrate::Page::Form.new(dashboard, resource)
